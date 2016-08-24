@@ -331,7 +331,7 @@ return {
                 '', 
                 "/direct "
                 +"<div style='"
-                    +'background-color: #4B0082;'
+                    +'background-color: #000000;'
                     +'border: 3px solid #808080;'
                     +'font-size: 20px;'
                     +'text-align:center;'
