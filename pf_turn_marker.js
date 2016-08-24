@@ -399,20 +399,30 @@ return {
 
             var cImage=currentToken.get('imgsrc');
             var cRatio=currentToken.get('width')/currentToken.get('height');
+            var CharID=currentToken.get('represents');
 
             if(currentToken && currentToken.get('showplayers_name'))
             {
-                var Name=currentToken.get('name')
+                var Name=currentToken.get('name');
             } else {
-                var Name='NPC'
+                var Name='NPC';
             }
+
+
 
             var cNameString='<span style=\''
                 +'font-size: 115%;'
                 +'font-weight:bold;'
+                +`text-decoration: underline;`
                 +'\'>'
+                +'<a href="https://journal.roll20.net/character/'
+                +CharID
+                +'">'
                 +Name
+                +'</a>'
                 +'</span>';
+
+            var Output=currentToken.get('represents');
 
             var PlayerAnnounceExtra='';
             if(state.TurnMarker.announcePlayerInTurnAnnounce)
@@ -479,6 +489,8 @@ return {
                     +'<div style="text-align: left; margin: 5px 5px; position: relative; vertical-align: text-top;">'
                         +"<img src='"+cImage+"' style='float:right; width:"+Math.round(tokenSize*cRatio)+"px; height:"+tokenSize+"px; padding: 0px 2px;' />"
                         +cNameString
+                        +'<br/>'
+                        +Output
                         +'<div style="clear:both;"></div>'
                     +'</div>'
                      +PlayerAnnounceExtra
