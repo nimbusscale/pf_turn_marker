@@ -399,21 +399,18 @@ return {
 
             var cImage=currentToken.get('imgsrc');
             var cRatio=currentToken.get('width')/currentToken.get('height');
-            
-            var cNameString='<span style=\''
-                    +'font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;'
-                    +'text-decoration: underline;'
-                    +'font-size: 130%;'
+
+            var NameStyle='<span style=\''
+                +'font-size: 115%;'
+                +'font-weight:bold;'
                 +'\'>'
-                    +'NPC'
+            
+            var cNameString=NameStyle
+                +'NPC'
                 +'</span>';
             if(currentToken && currentToken.get('showplayers_name'))
             {
-                cNameString='<span style=\''
-                    +'font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;'
-                    +'text-decoration: underline;'
-                    +'font-size: 130%;'
-                +'\'>'
+                cNameString=NameStyle
                     +currentToken.get('name')
                 +'</span>';
             }
@@ -480,12 +477,10 @@ return {
             sendChat(
                 '', 
                 "/direct "
-                +"<div style='border: 3px solid #808080; background-color: #4B0082; color: white; padding: 1px 1px;'>"
-                    +'<div style="text-align: right; margin: 5px 5px; position: relative; vertical-align: text-top;">'
+                +"<div style='border: 3px solid #808080; background-color: #efe; padding: 1px 1px;'>"
+                    +'<div style="text-align: left; margin: 5px 5px; position: relative; vertical-align: text-top;">'
                         +"<img src='"+cImage+"' style='float:right; width:"+Math.round(tokenSize*cRatio)+"px; height:"+tokenSize+"px; padding: 0px 2px;' />"
-                        + '<span style="position:absolute; t: 0;right:'+Math.round((tokenSize*cRatio)+6)+'px;">'
-                            +cNameString
-                        + '</span>'
+                        +cNameString
                         +'<div style="clear:both;"></div>'
                     +'</div>'
                      +PlayerAnnounceExtra
