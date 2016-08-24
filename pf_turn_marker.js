@@ -400,22 +400,20 @@ return {
             var cImage=currentToken.get('imgsrc');
             var cRatio=currentToken.get('width')/currentToken.get('height');
 
-            var NameStyle='<span style=\''
+            if(currentToken && currentToken.get('showplayers_name'))
+            {
+                var Name=currentToken.get('name')
+            } else {
+                var Name='NPC'
+            }
+
+            var cNameString='<span style=\''
                 +'font-size: 115%;'
                 +'font-weight:bold;'
                 +'\'>'
-            
-            var cNameString=NameStyle
-                +'NPC'
+                +Name
                 +'</span>';
-            if(currentToken && currentToken.get('showplayers_name'))
-            {
-                cNameString=NameStyle
-                    +currentToken.get('name')
-                +'</span>';
-            }
- 
-            
+
             var PlayerAnnounceExtra='';
             if(state.TurnMarker.announcePlayerInTurnAnnounce)
             {
