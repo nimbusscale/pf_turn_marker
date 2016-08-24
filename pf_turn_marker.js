@@ -347,6 +347,7 @@ return {
             );
         }
     },
+
     HandleTurnOrderChange: function() {
         var marker = TurnMarker.GetMarker(),
             turnorder = Campaign().get('turnorder'),
@@ -366,6 +367,7 @@ return {
 		}
         _.defer(_.bind(TurnMarker.DispatchInitiativePage,TurnMarker));
     },
+
     _HandleMarkerTurn: function(){
         var marker = TurnMarker.GetMarker();
         var turnOrder = TurnOrder.Get();
@@ -393,31 +395,10 @@ return {
             {
                 return;
             }
-            var previousTurn=_.last(_.filter(turnOrder,function(element){
-                var token=getObj("graphic", element.id);
-                return ((undefined !== token)
-                    && (token.get('layer')!=='gmlayer')
-                    && (element.id !== marker.id));
-            }));
             
-            /* find previous token. */
-            var previousToken = getObj("graphic", previousTurn.id);
-            var pImage=previousToken.get('imgsrc');
+
             var cImage=currentToken.get('imgsrc');
-            var pRatio=previousToken.get('width')/previousToken.get('height');
             var cRatio=currentToken.get('width')/currentToken.get('height');
-            
-            var pNameString="The Previous turn is complete.";
-            if(previousToken && previousToken.get('showplayers_name'))
-            {
-                pNameString='<span style=\''
-                        +'font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;'
-                        +'text-decoration: underline;'
-                        +'font-size: 130%;'                        
-                    +'\'>'
-                        +previousToken.get('name')
-                    +'</span>\'s turn is done.';                
-            }
             
             var cNameString='<span style=\''
                     +'font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;'
