@@ -422,7 +422,19 @@ return {
                 +'</a>'
                 +'</span>';
 
-            var Output=currentToken.get('represents');
+            if (CharID) {
+                var Char= getObj("character", CharID);
+                if (Char.get('controlledby')) {
+                    Type='player'
+                } else {
+                    var Type='npc';
+                }
+            } else {
+                var Type='npc';
+            };
+
+
+            var Output=Type;
 
             var PlayerAnnounceExtra='';
             if(state.TurnMarker.announcePlayerInTurnAnnounce)
@@ -482,15 +494,22 @@ return {
             }
             
             var tokenSize=70;
+            if (Type==='player') {
+                var bg_color = '#efe'
+            } else {
+                var bg_color = '#eef'
+            }
             sendChat(
                 '', 
                 "/direct "
-                +"<div style='border: 3px solid #808080; background-color: #efe; padding: 1px 1px;'>"
+                +"<div style='border: 3px solid #808080; background-color: "+bg_color+"; padding: 1px 1px;'>"
                     +'<div style="text-align: left; margin: 5px 5px; position: relative; vertical-align: text-top;">'
                         +"<img src='"+cImage+"' style='float:right; width:"+Math.round(tokenSize*cRatio)+"px; height:"+tokenSize+"px; padding: 0px 2px;' />"
                         +cNameString
                         +'<br/>'
-                        +Output
+                        +Type
+                        +'<br/>'
+                        +bg_color
                         +'<div style="clear:both;"></div>'
                     +'</div>'
                      +PlayerAnnounceExtra
