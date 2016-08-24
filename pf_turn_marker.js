@@ -30,7 +30,7 @@ return {
                 announcePlayerInTurnAnnounceSize: '100%',
                 autoskipHidden: true,
                 tokenName: 'Round',
-                tokenURL: 'http://nimbusscale.com/roll20/turn_marker.png',
+                tokenURL: 'https://s3.amazonaws.com/files.d20.io/images/22283933/PPg5uMyMiqmtEz6M-HakjQ/thumb.png?1472003413',
                 playAnimations: false,
                 rotation: false,
                 animationSpeed: 5,
