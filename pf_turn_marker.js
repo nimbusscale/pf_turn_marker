@@ -161,7 +161,7 @@ return {
             +'The following arguments may be supplied in order to change the configuration.  All changes are persisted between script restarts.'
             +'<ul>'
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;"><span style="color: blue; font-weight:bold; padding: 0px 4px;">'+rounds+'</span></div>'
-                +'<li style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">reset</span></b> -- Sets the round counter back to 0.</li> '
+                +'<li style="border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">reset</span></b> -- Sets the round counter back to 1.</li> '
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.announceRounds ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
                 +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-announce</span></b> -- When on, each round will be announced to chat.</li>'
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.announceTurnChange ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
