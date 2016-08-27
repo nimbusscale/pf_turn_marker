@@ -4,6 +4,23 @@
 /*  PFTurnMarker */
 /*  ############################################################### */
 
+var CommunityLibrary = {
+    TokenType: function(Token){
+        var CharID=Token.get('represents');
+        if (CharID) {
+            var Char= getObj("character", CharID);
+            if (Char.get('controlledby')) {
+                Type='player'
+            } else {
+                var Type='npc';
+            }
+        } else {
+            var Type='npc';
+        };
+        return Type
+    }
+};
+
 var PFTurnMarker = PFTurnMarker || (function(){
     "use strict";
 
@@ -289,6 +306,7 @@ return {
             var marker = PFTurnMarker.GetMarker();
             var turnOrder = TurnOrder.Get();
             var currentToken = getObj("graphic", turnOrder[0].id);
+            var TokenType = CommunityLibrary.TokenType(currentToken)
             if('gmlayer' === currentToken.get('layer'))
             {
                 return;
@@ -297,7 +315,6 @@ return {
 
             var cImage=currentToken.get('imgsrc');
             var cRatio=currentToken.get('width')/currentToken.get('height');
-            var CharID=currentToken.get('represents');
 
             if(currentToken && currentToken.get('showplayers_name'))
             {
@@ -312,25 +329,14 @@ return {
                 +`text-decoration: underline;`
                 +'\'>'
                 +'<a href="https://journal.roll20.net/character/'
-                +CharID
+                +currentToken.get('represents')
                 +'">'
                 +Name
                 +'</a>'
                 +'</span>';
 
-            if (CharID) {
-                var Char= getObj("character", CharID);
-                if (Char.get('controlledby')) {
-                    Type='player'
-                } else {
-                    var Type='npc';
-                }
-            } else {
-                var Type='npc';
-            };
-
             var tokenSize=70;
-            if (Type==='player') {
+            if (TokenType==='player') {
                 var bg_color = '#efe'
             } else {
                 var bg_color = '#eef'
@@ -500,11 +506,6 @@ return {
 
 };
 }());
-
-
-
-
-
 
 on("ready",function(){
     'use strict';
