@@ -314,7 +314,6 @@ return {
 
 
             var cImage=currentToken.get('imgsrc');
-            var cRatio=currentToken.get('width')/currentToken.get('height');
 
             if(currentToken.get('showplayers_name'))
             {
@@ -338,6 +337,17 @@ return {
             var tokenSize=70;
             if (TokenType==='player') {
                 var bg_color = '#efe'
+                var Char = getObj("character", currentToken.get('represents'))
+                var CurrentHP = getAttrByName(Char.id, "HP");
+                var Speed = getAttrByName(Char.id, "speed-modified");
+                var MaxHP = getAttrByName(Char.id, "HP", "max");
+                var TempHP = getAttrByName(Char.id, "HP-temp");
+                var NonLeathal = getAttrByName(Char.id, "non-lethal-damage");
+                var CharInfo = "<span style='font-weight: bold'>HP:</span> " + CurrentHP + "/" + MaxHP
+                                +" <span style='font-weight: bold'>Speed:</span> " + Speed + "ft"
+                                +'<br>'
+                                +(TempHP != 0 ? " <span style='font-weight: bold'>THP:</span> " + TempHP : "" )
+                                +(NonLeathal != 0 ? " <span style='font-weight: bold'>NLD:</span> " + NonLeathal : "" )
             } else {
                 var bg_color = '#eef'
             }
@@ -346,8 +356,10 @@ return {
                 "/direct "
                 +"<div style='border: 3px solid #808080; background-color: "+bg_color+"; padding: 1px 1px;'>"
                     +'<div style="text-align: left; margin: 5px 5px; position: relative; vertical-align: text-top;">'
-                        +"<img src='"+cImage+"' style='float:right; width:"+Math.round(tokenSize*cRatio)+"px; height:"+tokenSize+"px; padding: 0px 2px;' />"
+                        +"<img src='"+cImage+"' style='float:right; width:"+Math.round(tokenSize *.8)+"px; height:"+Math.round(tokenSize *.8)+"px; padding: 0px 2px;' />"
                         +cNameString
+                        +'<br>'
+                        +(CharInfo ? CharInfo : "" )
                         +'<div style="clear:both;"></div>'
                     +'</div>'
                 +"</div>"
