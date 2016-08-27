@@ -75,35 +75,13 @@ return {
     },
 
     Step: function( sync ){
-        if (!state.PFTurnMarker.playAnimations || sync !== PFTurnMarker.threadSync)
+        if (sync !== PFTurnMarker.threadSync)
         {
             return;
         }
         var marker=PFTurnMarker.GetMarker();
         if(PFTurnMarker.active === true)
         {
-            var rotation=(marker.get('bar1_value')+state.PFTurnMarker.animationSpeed)%360;
-            marker.set('bar1_value', rotation );
-            if(state.PFTurnMarker.rotation)
-            {
-                marker.set( 'rotation', rotation );
-            }
-            if( state.PFTurnMarker.aura1.pulse )
-            {
-                marker.set('aura1_radius', Math.abs(Math.sin(rotation * (Math.PI/180))) * state.PFTurnMarker.aura1.size );
-            }
-            else
-            {
-                marker.set('aura1_radius','');
-            }
-            if( state.PFTurnMarker.aura2.pulse  )
-            {
-                marker.set('aura2_radius', Math.abs(Math.cos(rotation * (Math.PI/180))) * state.PFTurnMarker.aura2.size );
-            }
-            else
-            {
-                marker.set('aura2_radius','');
-            }
             setTimeout(_.bind(PFTurnMarker.Step,this,sync), 100);
         }
     },
@@ -130,21 +108,6 @@ return {
     Start: function() {
         var marker = PFTurnMarker.GetMarker();
 
-
-        if(state.PFTurnMarker.playAnimations && state.PFTurnMarker.aura1.pulse)
-        {
-            marker.set({
-                aura1_radius: state.PFTurnMarker.aura1.size,
-                aura1_color: state.PFTurnMarker.aura1.color
-            });
-        }
-        if(state.PFTurnMarker.playAnimations && state.PFTurnMarker.aura2.pulse)
-        {
-            marker.set({
-                aura2_radius: state.PFTurnMarker.aura2.size,
-                aura2_color: state.PFTurnMarker.aura2.color
-            });
-        }
         PFTurnMarker.active=true;
         PFTurnMarker.Step(PFTurnMarker.threadSync);
         PFTurnMarker.TurnOrderChange(true);
@@ -182,40 +145,6 @@ return {
                 sendChat('','/w '+who+' <b>Auto-skip Hidden</b> is now <b>'+(state.PFTurnMarker.autoskipHidden ? 'ON':'OFF' )+'</b>.');
                 break;
 
-            case 'toggle-animations':
-                state.PFTurnMarker.playAnimations=!state.PFTurnMarker.playAnimations;
-                if(state.PFTurnMarker.playAnimations)
-                {
-                    PFTurnMarker.Step(PFTurnMarker.threadSync);
-                }
-                else
-                {
-                    var marker = PFTurnMarker.GetMarker();
-                    marker.set({
-                        aura1_radius: '',
-                        aura2_radius: ''
-                    });
-                }
-
-                sendChat('','/w '+who+' <b>Animations</b> are now <b>'+(state.PFTurnMarker.playAnimations ? 'ON':'OFF' )+'</b>.');
-                break;
-
-            case 'toggle-rotate':
-                state.PFTurnMarker.rotation=!state.PFTurnMarker.rotation;
-                sendChat('','/w '+who+' <b>Rotation</b> is now <b>'+(state.PFTurnMarker.rotation ? 'ON':'OFF' )+'</b>.');
-                break;
-
-            case 'toggle-aura-1':
-                state.PFTurnMarker.aura1.pulse=!state.PFTurnMarker.aura1.pulse;
-                sendChat('','/w '+who+' <b>Aura 1</b> is now <b>'+(state.PFTurnMarker.aura1.pulse ? 'ON':'OFF' )+'</b>.');
-                break;
-
-            case 'toggle-aura-2':
-                state.PFTurnMarker.aura2.pulse=!state.PFTurnMarker.aura2.pulse;
-                sendChat('','/w '+who+' <b>Aura 2</b> is now <b>'+(state.PFTurnMarker.aura2.pulse ? 'ON':'OFF' )+'</b>.');
-                break;
-
-
             case 'help':
             default:
                 PFTurnMarker.Help(who);
@@ -247,15 +176,6 @@ return {
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.announcePlayerInTurnAnnounce ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
                 +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-announce-player</span></b> -- When on, the player(s) controlling the current turn are included in the turn announcement.</li> '
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.autoskipHidden ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
-                +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-skip-hidden</span></b> -- When on, turn order will automatically be advanced past any hidden turns.</li> '
-                    +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.playAnimations ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
-                +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-animations</span></b> -- Turns on turn marker animations. [Experimental!]</li> '
-                    +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.rotation ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
-                +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-rotate</span></b> -- When on, the turn marker will rotate slowly clockwise. [Animation]</li> '
-                    +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.aura1.pulse ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
-                +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-aura-1</span></b> -- When on, aura 2 will pulse in and out. [Animation]</li> '
-                    +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.aura2.pulse ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
-                +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-aura-2</span></b> -- When on, aura 2 will pulse in and out. [Animation]</li> '
             +'</ul>'
         +'</div>'
     +'</div>'
@@ -520,12 +440,6 @@ return {
         }
 
         var current = _.first(turnOrder);
-
-        if(state.PFTurnMarker.playAnimations)
-        {
-            PFTurnMarker.threadSync++;
-            setTimeout(_.bind(PFTurnMarker.Step,this,PFTurnMarker.threadSync), 300);
-        }
 
         if (current.id === "-1") {
             return;
