@@ -238,9 +238,7 @@ return {
                     +'font-weight:bold;'
                     +'padding: 5px 5px;'
                 +"'>"
-                    +"<img src='"+state.PFTurnMarker.tokenURL+"' style='width:20px; height:20px; padding: 0px 5px;' />"
                     +"Round "+ round
-                    +"<img src='"+state.PFTurnMarker.tokenURL+"' style='width:20px; height:20px; padding: 0px 5px;' />"
                 +"</div>"
             );
         }
