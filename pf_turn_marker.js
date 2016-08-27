@@ -280,6 +280,7 @@ return {
             TurnOrder.Next();
         }
     },
+
     _HandleAnnounceTurnChange: function(){
 
         if(state.PFTurnMarker.announceTurnChange )
@@ -304,8 +305,6 @@ return {
                 var Name='NPC';
             }
 
-
-
             var cNameString='<span style=\''
                 +'font-size: 115%;'
                 +'font-weight:bold;'
@@ -329,9 +328,6 @@ return {
                 var Type='npc';
             };
 
-
-            var Output=Type;
-
             var tokenSize=70;
             if (Type==='player') {
                 var bg_color = '#efe'
@@ -345,10 +341,6 @@ return {
                     +'<div style="text-align: left; margin: 5px 5px; position: relative; vertical-align: text-top;">'
                         +"<img src='"+cImage+"' style='float:right; width:"+Math.round(tokenSize*cRatio)+"px; height:"+tokenSize+"px; padding: 0px 2px;' />"
                         +cNameString
-                        +'<br/>'
-                        +Type
-                        +'<br/>'
-                        +bg_color
                         +'<div style="clear:both;"></div>'
                     +'</div>'
                 +"</div>"
