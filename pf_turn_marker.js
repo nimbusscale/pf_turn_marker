@@ -7,9 +7,9 @@
 var PFTurnMarker = PFTurnMarker || (function(){
     "use strict";
 
-    var version = '1.3.4',
-        lastUpdate = 1455059959,
-        schemaVersion = 1.16,
+    var version = '0.1',
+        lastUpdate = '2016/08/26',
+        schemaVersion = 0.9,
         active = false,
         threadSync = 1;
 
@@ -17,8 +17,7 @@ var PFTurnMarker = PFTurnMarker || (function(){
 return {
 
     CheckInstall: function() {
-        log('-=> PFTurnMarker v'+version+' <=-  ['+(new Date(lastUpdate*1000))+']');
-
+        log('-=> PFTurnMarker v'+version+' <=-  ['+lastUpdate+']');
 
         if( ! state.hasOwnProperty('PFTurnMarker') || state.PFTurnMarker.schemaVersion !== schemaVersion)
         {
@@ -32,22 +31,9 @@ return {
                 autoskipHidden: true,
                 tokenName: 'Round',
                 tokenURL: 'https://s3.amazonaws.com/files.d20.io/images/22283933/PPg5uMyMiqmtEz6M-HakjQ/thumb.png?1472003413',
-                playAnimations: false,
-                rotation: false,
-                animationSpeed: 5,
-                scale: 1.0,
-                aura1: {
-                    pulse: false,
-                    size: 5,
-                    color: '#ff00ff'
-                },
-                aura2: {
-                    pulse: false,
-                    size: 5,
-                    color: '#00ff00'
-                }
+                scale: 1.0
+                };
             };
-        }
         if(Campaign().get('turnorder') ==='')
         {
             Campaign().set('turnorder','[]');
