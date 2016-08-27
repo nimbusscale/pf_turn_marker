@@ -121,7 +121,7 @@ return {
                     name: state.PFTurnMarker.tokenName+' 1',
                     bar2_value: 1
                 });
-                sendChat('','/w gm <b>Round</b> count is reset to <b>0</b>.');
+                sendChat('','/w gm <b>Round</b> count is reset to <b>1</b>.');
                 break;
 
             case 'toggle-announce':
