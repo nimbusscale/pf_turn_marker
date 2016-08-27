@@ -316,7 +316,7 @@ return {
             var cImage=currentToken.get('imgsrc');
             var cRatio=currentToken.get('width')/currentToken.get('height');
 
-            if(currentToken && currentToken.get('showplayers_name'))
+            if(currentToken.get('showplayers_name'))
             {
                 var Name=currentToken.get('name');
             } else {
