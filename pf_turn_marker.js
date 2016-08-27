@@ -26,8 +26,6 @@ return {
                 version: schemaVersion,
                 announceRounds: true,
                 announceTurnChange: true,
-                announcePlayerInTurnAnnounce: true,
-                announcePlayerInTurnAnnounceSize: '100%',
                 autoskipHidden: true,
                 tokenName: 'Round',
                 tokenURL: 'https://s3.amazonaws.com/files.d20.io/images/22283933/PPg5uMyMiqmtEz6M-HakjQ/thumb.png?1472003413',
@@ -135,11 +133,6 @@ return {
                 sendChat('','/w '+who+' <b>Announce Turn Changes</b> is now <b>'+(state.PFTurnMarker.announceTurnChange ? 'ON':'OFF' )+'</b>.');
                 break;
 
-            case 'toggle-announce-player':
-                state.PFTurnMarker.announcePlayerInTurnAnnounce=!state.PFTurnMarker.announcePlayerInTurnAnnounce;
-                sendChat('','/w '+who+' <b>Player Name in Announce</b> is now <b>'+(state.PFTurnMarker.announcePlayerInTurnAnnounce ? 'ON':'OFF' )+'</b>.');
-                break;
-
             case 'toggle-skip-hidden':
                 state.PFTurnMarker.autoskipHidden=!state.PFTurnMarker.autoskipHidden;
                 sendChat('','/w '+who+' <b>Auto-skip Hidden</b> is now <b>'+(state.PFTurnMarker.autoskipHidden ? 'ON':'OFF' )+'</b>.');
@@ -172,8 +165,6 @@ return {
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.announceRounds ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
                 +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-announce</span></b> -- When on, each round will be announced to chat.</li>'
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.announceTurnChange ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
-                +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-announce-turn</span></b> -- When on, the transition between visible turns will be announced.</li> '
-                    +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.announcePlayerInTurnAnnounce ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
                 +'<li style="border-bottom: 1px solid #ccc;"><b><span style="font-family: serif;">toggle-announce-player</span></b> -- When on, the player(s) controlling the current turn are included in the turn announcement.</li> '
                     +'<div style="float:right;width:40px;border:1px solid black;background-color:#ffc;text-align:center;">'+( state.PFTurnMarker.autoskipHidden ? '<span style="color: red; font-weight:bold; padding: 0px 4px;">ON</span>' : '<span style="color: #999999; font-weight:bold; padding: 0px 4px;">OFF</span>' )+'</div>'
             +'</ul>'
@@ -343,63 +334,6 @@ return {
 
             var Output=Type;
 
-            var PlayerAnnounceExtra='';
-            if(state.PFTurnMarker.announcePlayerInTurnAnnounce)
-            {
-                var Char=currentToken.get('represents');
-                if('' !== Char)
-                {
-                    Char=getObj('character',Char);
-                    if(Char && _.isFunction(Char.get))
-                    {
-                        var Controllers=Char.get('controlledby').split(',');
-                        _.each(Controllers,function(c){
-                            switch(c)
-                            {
-                                case 'all':
-                                    PlayerAnnounceExtra+='<div style="'
-                                            +'padding: 0px 5px;'
-                                            +'font-weight: bold;'
-                                            +'text-align: center;'
-                                            +'font-size: '+state.PFTurnMarker.announcePlayerInTurnAnnounceSize+';'
-                                            +'border: 5px solid black;'
-                                            +'background-color: white;'
-                                            +'color: black;'
-                                            +'letter-spacing: 3px;'
-                                            +'line-height: 130%;'
-                                        +'">'
-                                            +'All'
-                                        +'</div>';
-                                    break;
-
-                                default:
-                                    var player=getObj('player',c);
-                                    if(player) {
-                                        var PlayerColor=player.get('color');
-                                        var PlayerName=player.get('displayname');
-                                        PlayerAnnounceExtra+='<div style="'
-                                                +'padding: 5px;'
-                                                +'text-align: center;'
-                                                +'font-size: '+state.PFTurnMarker.announcePlayerInTurnAnnounceSize+';'
-                                                +'background-color: '+PlayerColor+';'
-                                                +'text-shadow: '
-                                                    +'-1px -1px 1px #000,'
-                                                    +' 1px -1px 1px #000,'
-                                                    +'-1px  1px 1px #000,'
-                                                    +' 1px  1px 1px #000;'
-                                                +'letter-spacing: 3px;'
-                                                +'line-height: 130%;'
-                                            +'">'
-                                                +PlayerName
-                                            +'</div>';
-                                    }
-                                    break;
-                            }
-                        });
-                    }
-                }
-            }
-
             var tokenSize=70;
             if (Type==='player') {
                 var bg_color = '#efe'
@@ -419,7 +353,6 @@ return {
                         +bg_color
                         +'<div style="clear:both;"></div>'
                     +'</div>'
-                     +PlayerAnnounceExtra
                 +"</div>"
             );
         }
