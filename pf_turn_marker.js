@@ -108,6 +108,7 @@ return {
 
         PFTurnMarker.active=true;
         PFTurnMarker.Step(PFTurnMarker.threadSync);
+        PFTurnMarker._AnnounceRound(1)
         PFTurnMarker.TurnOrderChange(true);
     },
 
