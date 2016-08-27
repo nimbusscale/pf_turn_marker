@@ -120,22 +120,22 @@ return {
                     name: state.PFTurnMarker.tokenName+' 1',
                     bar2_value: 1
                 });
-                sendChat('','/w '+who+' <b>Round</b> count is reset to <b>0</b>.');
+                sendChat('','/w gm <b>Round</b> count is reset to <b>0</b>.');
                 break;
 
             case 'toggle-announce':
                 state.PFTurnMarker.announceRounds=!state.PFTurnMarker.announceRounds;
-                sendChat('','/w '+who+' <b>Announce Rounds</b> is now <b>'+(state.PFTurnMarker.announceRounds ? 'ON':'OFF' )+'</b>.');
+                sendChat('','/w gm <b>Announce Rounds</b> is now <b>'+(state.PFTurnMarker.announceRounds ? 'ON':'OFF' )+'</b>.');
                 break;
 
             case 'toggle-announce-turn':
                 state.PFTurnMarker.announceTurnChange=!state.PFTurnMarker.announceTurnChange;
-                sendChat('','/w '+who+' <b>Announce Turn Changes</b> is now <b>'+(state.PFTurnMarker.announceTurnChange ? 'ON':'OFF' )+'</b>.');
+                sendChat('','/w gm <b>Announce Turn Changes</b> is now <b>'+(state.PFTurnMarker.announceTurnChange ? 'ON':'OFF' )+'</b>.');
                 break;
 
             case 'toggle-skip-hidden':
                 state.PFTurnMarker.autoskipHidden=!state.PFTurnMarker.autoskipHidden;
-                sendChat('','/w '+who+' <b>Auto-skip Hidden</b> is now <b>'+(state.PFTurnMarker.autoskipHidden ? 'ON':'OFF' )+'</b>.');
+                sendChat('','/w gm <b>Auto-skip Hidden</b> is now <b>'+(state.PFTurnMarker.autoskipHidden ? 'ON':'OFF' )+'</b>.');
                 break;
 
             case 'help':
