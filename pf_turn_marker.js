@@ -146,7 +146,7 @@ return {
         }
     },
 
-    Help: function(who){
+    Help: function(){
         var marker = PFTurnMarker.GetMarker();
         var rounds =parseInt(marker.get('bar2_value'),10);
         sendChat('',
