@@ -27,8 +27,7 @@ var PFTurnMarker = PFTurnMarker || (function(){
     var version = '0.1',
         lastUpdate = '2016/08/26',
         schemaVersion = 0.9,
-        active = false,
-        threadSync = 1;
+        active = false
 
 
 return {
@@ -89,21 +88,8 @@ return {
         return marker;
     },
 
-    Step: function( sync ){
-        if (sync !== PFTurnMarker.threadSync)
-        {
-            return;
-        }
-        var marker=PFTurnMarker.GetMarker();
-        if(PFTurnMarker.active === true)
-        {
-            setTimeout(_.bind(PFTurnMarker.Step,this,sync), 100);
-        }
-    },
-
     Reset: function() {
         PFTurnMarker.active=false;
-        PFTurnMarker.threadSync++;
 
         var marker = PFTurnMarker.GetMarker();
 
@@ -124,7 +110,6 @@ return {
         var marker = PFTurnMarker.GetMarker();
 
         PFTurnMarker.active=true;
-        PFTurnMarker.Step(PFTurnMarker.threadSync);
         PFTurnMarker._AnnounceRound(1)
         PFTurnMarker.TurnOrderChange(true);
     },
@@ -204,15 +189,11 @@ return {
             var current = _.first(turnOrder);
             if( obj && current && current.id === obj.id)
             {
-               PFTurnMarker.threadSync++;
-
                 var marker = PFTurnMarker.GetMarker();
                 marker.set({
                     "top": obj.get("top"),
                     "left": obj.get("left")
                 });
-
-               setTimeout(_.bind(PFTurnMarker.Step,this,PFTurnMarker.threadSync), 300);
             }
         }
     },
