@@ -320,15 +320,16 @@ return {
                 var bg_color = '#efe'
                 var Char = getObj("character", currentToken.get('represents'))
                 var CurrentHP = getAttrByName(Char.id, "HP");
+                var TempHP = getAttrByName(Char.id, "HP-temp");
+                var TotalHP = Number(CurrentHP) + Number(TempHP)
                 var Speed = getAttrByName(Char.id, "speed-modified");
                 var MaxHP = getAttrByName(Char.id, "HP", "max");
-                var TempHP = getAttrByName(Char.id, "HP-temp");
                 var NonLeathal = getAttrByName(Char.id, "non-lethal-damage");
-                var CharInfo = "<span style='font-weight: bold'>HP:</span> " + CurrentHP + "/" + MaxHP
-                                +" <span style='font-weight: bold'>Speed:</span> " + Speed + "ft"
+                var CharInfo = "<span style='font-weight: bold'>HP:</span> " + TotalHP + "/" + MaxHP + " "
+                                +(NonLeathal != 0 ? "<span style='font-weight: bold'>NLD:</span> " + NonLeathal : "" )
                                 +'<br>'
-                                +(TempHP != 0 ? " <span style='font-weight: bold'>THP:</span> " + TempHP : "" )
-                                +(NonLeathal != 0 ? " <span style='font-weight: bold'>NLD:</span> " + NonLeathal : "" )
+                                +" <span style='font-weight: bold'>Speed:</span> " + Speed + "ft"
+
             } else {
                 var bg_color = '#eef'
             }
